@@ -208,10 +208,6 @@ void arm_mmu_init(void) {
 #endif
 }
 
-void arch_disable_mmu(void) {
-    arm_write_sctlr(arm_read_sctlr() & ~(1<<0)); // mmu disabled
-}
-
 void arch_mmu_context_switch(arch_aspace_t *aspace) {
     if (LOCAL_TRACE && TRACE_CONTEXT_SWITCH)
         LTRACEF("aspace %p\n", aspace);
@@ -719,5 +715,9 @@ status_t arch_mmu_destroy_aspace(arch_aspace_t *aspace) {
 
     return NO_ERROR;
 }
+
+bool arch_mmu_supports_nx_mappings(void) { return true; }
+bool arch_mmu_supports_ns_mappings(void) { return true; }
+bool arch_mmu_supports_user_aspaces(void) { return true; }
 
 #endif // ARCH_HAS_MMU

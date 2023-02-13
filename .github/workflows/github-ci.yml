@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        toolchain-ver: [12.1.0, 7.5.0]
+        toolchain-ver: [12.2.0, 7.5.0]
         debug: [2, 0]
         project:
           - qemu-virt-arm32-test
@@ -64,7 +64,8 @@ jobs:
         echo DEBUG = $DEBUG
 
     # check out the source
-    - uses: actions/checkout@v2
+    - name: checkout
+      uses: actions/checkout@v3
 
     # compute the toolchain prefix this project will need
     - name: compute toolchain
@@ -77,7 +78,7 @@ jobs:
     # maintain a directory archives/ in the repo
     # it will contain tarballs of various toolchains
     - name: cache
-      uses: actions/cache@v2.1.1
+      uses: actions/cache@v3
       id: cache
       with:
         # A list of files, directories, and wildcard patterns to cache and restore
